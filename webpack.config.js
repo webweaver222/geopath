@@ -31,7 +31,8 @@ module.exports = (env = {}) => {
         mode: isProd? 'production': isDev && 'development',
 
         output: {
-            filename: isProd? 'main-[hash:8].js' : undefined
+            filename: isProd? 'main-[hash:8].js' : undefined,
+            publicPath: '/'
         },
 
         module: {
@@ -85,7 +86,7 @@ module.exports = (env = {}) => {
                         {
                             loader: 'sass-resources-loader',
                             options: {
-                              resources: ['./src/resources/vars.sass']
+                              resources: ['./src/resources/vars.sass' ]
                             },
                           } 
                     ]
@@ -98,8 +99,14 @@ module.exports = (env = {}) => {
         plugins: getPlugins(),
 
         devServer: {
+            host: '0.0.0.0',
+            disableHostCheck: true,
             open: true,
-            port: 8000
+            port: 8000,
+            historyApiFallback: true,
+            contentBase: './',
+            hot: true,
+            openPage: 'test/create'
         }
     }
 }
