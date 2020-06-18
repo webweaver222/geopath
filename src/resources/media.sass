@@ -1,0 +1,139 @@
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px)
+	/**/
+
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px)
+	/**/
+
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px)
+	/**/
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px)
+    .app
+        font-size: 13px
+        .myrow
+            width: 100%
+            input, textarea
+                margin-right: 5px
+                border: 1px solid $accent
+                border-radius: 20px
+                resize: none
+                padding: 10px
+        .question
+            .answers-section
+                width: 80%
+        .test-process
+            .confirm, .save-info
+                width: 90%
+                padding: 10px
+                h2
+                    text-align: center
+            .test-room
+                width: 90% 
+                .question
+                    margin-top: 0
+                    .control-buttons
+                        width: 100%
+                        justify-content: space-around
+                        button
+                            
+                .questions-field
+                    .question-block
+                        width: 20px
+                        height: 20px
+                        line-height: 20px
+                .timer-wrapper
+                    display: flex   
+                    justify-content: center
+                    .timer
+                        float: none
+            .test-intro
+                width: 90%
+                .intro-header
+                    flex-direction: column
+                    .left-pannel, .right-pannel
+                        width: 100%
+                        input.withError
+                                border: 1px solid red
+                        .notification
+                            right: -30px 
+                            img
+                                height: 60px
+                .alert
+                    width: 100%
+        .test-creator
+            flex-direction: column
+            overflow: scroll
+            .left
+                display: flex
+                width: 100%
+                .test-creator-main
+                    height: 35%
+                    margin-bottom: 10px
+                    .notification
+                        right: -8px
+                        top: 35px
+                        z-index: 2
+                        .alert
+                            width: 100px
+                        img
+                            height: 60px
+                    textarea
+                        width: 70%
+                    button
+                        height: 20%
+                    input.withError
+                        border: 1px solid red
+                .question
+                    height: 55%
+                    margin-top: 10px
+                    label
+                        margin: 0 10px
+                        i
+                            font-size: 18px
+                    .control-buttons
+                        width: 100%
+                        justify-content: space-around
+            .right
+                width: 100%
+                .question-pool
+                    height: auto
+                .dl-item
+                    width: 30%
+                    margin: 10px 0 10px 4px
+            .publisher
+                width: 95%
+                height: auto
+                margin: auto
+                .test-url
+                    height: auto
+                    width: 100%
+                    margin: auto
+                .time-input
+                    width: 35%
+                    border-radius: 12px
+                .question-pool
+                    margin-left: 0
+                    margin-right: 0
+                    width: 100%
+                    .dl-item
+                        width: 32%
+                        margin-left: 3px
+                    .dropdown-question
+                        width: 120%
+                .control-buttons
+                    margin: auto
+                .error-indicator
+                    .alert
+                        width: 100%
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px)
+	/**/
