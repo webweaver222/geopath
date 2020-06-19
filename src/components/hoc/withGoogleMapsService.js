@@ -10,7 +10,7 @@ const witheService =  (Wrapped) => {
                 {
                     (service) => {
                         return (
-                            <Wrapped {...props} service={service} />
+                            <Wrapped {...props} googleMapsService={service} />
                         )
                     }
                 }

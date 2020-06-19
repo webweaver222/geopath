@@ -1,3 +1,3 @@
-import withService from './withService'
+import withGoogleMapsService from './withGoogleMapsService'
 
-export default withService
+export default withGoogleMapsService

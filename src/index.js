@@ -12,17 +12,19 @@ import { ServiceProvider } from './components/service-provider'
 import App from './components/app'
 
 
-import diviaiService from './services/diviaiService'
+import googleMaps from './services/googleMaps'
 import store from './store'
 
 
 
-const service = new diviaiService()
+const googleMapsService = googleMaps
+
+//console.log(service);
 
 ReactDom.render(
     <Provider store={store}>
         <ErrorBoundry>
-            <ServiceProvider value={service}>
+            <ServiceProvider value={googleMapsService}>
                 <Router>
                     <App />
                 </Router>

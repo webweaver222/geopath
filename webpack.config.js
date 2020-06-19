@@ -17,7 +17,7 @@ module.exports = (env = {}) => {
     const getPlugins = () => {
         const plugins = [
             new HtmlWebpackPlugin({
-                title: 'Testify',
+                title: 'geopath',
                 template: 'public/index.html'
             }),
         ]
@@ -106,7 +106,7 @@ module.exports = (env = {}) => {
             historyApiFallback: true,
             contentBase: './',
             hot: true,
-            openPage: 'test/create'
+            openPage: ''
         }
     }
 }
