@@ -21,11 +21,11 @@ export default class googleMaps {
 
     createMarker (place) {   
         var myLatlng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
-        console.log(place.geometry.location);
+        
         var marker = new google.maps.Marker({
           map: this._map,
           position: myLatlng,
-          draggable:true,
+          //draggable:true,
         });
 
         google.maps.event.addListener(marker, 'click', function() {

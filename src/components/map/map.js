@@ -1,13 +1,16 @@
-import React, {useEffect} from 'react'
+import React, {useEffect , useState, useRef} from 'react'
 import {connect} from 'react-redux'
 
-import {compose} from '../../utils'
+import {compose, seDidUpdateEffect} from '../../utils'
 import withGoogleMapsService from '../hoc/withGoogleMapsService'
 
 import './map.sass'
 
 
-const Map = ({onMapInit, googleMapsService}) => {
+const Map = ({onMapInit, googleMapsService , list}) => {
+    
+
+    const [mapsService, setMapsService] = useState({});
     
 
     const initMap = ( ) => {
@@ -18,26 +21,32 @@ const Map = ({onMapInit, googleMapsService}) => {
                     zoom: 8,
                     center: {lat: -34.397, lng: 150.644}
                 }))
-            }, 1000)
+            }, 0)
         });
     }
 
+
     useEffect(() => {
         initMap().then(map => {
-          
-            //onMapInit(map)
 
-            const mapsService = new googleMapsService(map)
+           setMapsService(new googleMapsService(map))
 
-            mapsService.findPlace({
-              query: 'Israel, Ramat-Gan, Herzl 52',
-              fields: ['name', 'geometry'],
-            })
 
        
-          })
-        
+          })  
     }, [])
+
+
+
+
+    useEffect(() => {
+      if (list) 
+      mapsService.findPlace({
+        query: list[list.length -1],
+        fields: ['name', 'geometry'],
+      })
+    
+    }, [list])
 
     return (
         <div id="map"></div>
@@ -46,9 +55,10 @@ const Map = ({onMapInit, googleMapsService}) => {
  
 
 
-const mapStateToProps = ({map}) => {
+const mapStateToProps = ({map, list}) => {
   return {
-      map
+      map,
+      list
       
   }
 } 

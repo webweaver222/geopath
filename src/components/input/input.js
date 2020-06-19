@@ -1,10 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-const Input = ({input, onInputChange, onEnterAdrerss = null}) => {
+const Input = ({input, list, onInputChange, onEnterAdrerss}) => {
+
+    
     return ( 
         <div className="input">
-            <input type="text" onKeyDown={onEnterAdrerss} 
+            <label htmlFor="">Address input</label>
+            <input type="text" onKeyDown={(e) => {
+                if (e.keyCode == 13) {
+                    onEnterAdrerss()
+                } 
+            }} 
             value={input}
             onChange={(e) => onInputChange(e.target.value)}/>
         </div>
@@ -12,15 +19,17 @@ const Input = ({input, onInputChange, onEnterAdrerss = null}) => {
 }
 
 
-const mapStateToProps = ({input}) => {
+const mapStateToProps = ({input, list}) => {
     return {
-        input
+        input,
+        list
     }
   } 
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        onInputChange: (adress) => dispatch({type:'INPUT_CHANGE', payload: adress})
+        onInputChange: (adress) => dispatch({type:'INPUT_CHANGE', payload: adress}),
+        onEnterAdrerss: () => dispatch('ADDRESS_ENTER')
     }
   }
  

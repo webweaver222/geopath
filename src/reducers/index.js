@@ -2,8 +2,17 @@ const initialState = {
     map: null,
     geocoder: null,
     input: '',
-    list: [],
+    list: null,
     
+}
+
+const updateList = (list, newItem) => {
+  if (list === null) return [newItem]
+
+  return [
+    ...list,
+    newItem
+  ]
 }
 
 const reducer = (state , action) => {
@@ -26,6 +35,14 @@ const reducer = (state , action) => {
             return {
               ...state,
               input: action.payload
+            }
+          }
+
+          case 'ADDRESS_ENTER': {
+            return {
+              ...state,
+              input: '',
+              list: updateList(state.list, state.input)
             }
           }
 
