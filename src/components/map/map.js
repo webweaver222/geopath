@@ -21,7 +21,7 @@ const Map = ({onMapInit, googleMapsService , list}) => {
                     zoom: 8,
                     center: {lat: -34.397, lng: 150.644}
                 }))
-            }, 0)
+            }, 1000)
         });
     }
 
@@ -40,12 +40,21 @@ const Map = ({onMapInit, googleMapsService , list}) => {
 
 
     useEffect(() => {
-      if (list) 
-      mapsService.findPlace({
-        query: list[list.length -1],
-        fields: ['name', 'geometry'],
-      })
-    
+      if (list) {
+        mapsService.findPlace({
+          query: list[list.length -1],
+          fields: ['name', 'geometry'],
+        }).then(point => {
+          console.log(point);
+        })
+
+       
+
+
+
+        //mapsService.connectMarkers(list)
+    }
+
     }, [list])
 
     return (
