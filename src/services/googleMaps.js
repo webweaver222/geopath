@@ -4,6 +4,7 @@ export default class googleMaps {
     _infowindow = null
     _service = null
     _geocoder = null
+    _pl = null
 
 
 
@@ -16,6 +17,10 @@ export default class googleMaps {
 
     getService() {
         return this._service
+    }
+
+    getMap() {
+      return this._map
     }
 
     getInfoWindow () {
@@ -32,23 +37,12 @@ export default class googleMaps {
           draggable:true,
         });
 
-        google.maps.event.addListener(marker, 'dragend', () => {
-          console.log(marker.position.lat());
-          console.log(marker.position.lng())
-        })
-
-        this._geocoder.geocode({'location': new google.maps.LatLng(50.460592153121155, 29.534630468750002)}, (results, status) => {
-          if (status === 'OK') {
-            console.log(results);
-          }
-        })
-
-        return marker
-
-        /*google.maps.event.addListener(marker, 'click', () => {
+        google.maps.event.addListener(marker, 'click', () => {
           this._infowindow.setContent(place.name);
           this._infowindow.open(this._map, marker);
-        });*/
+        });
+      
+        return marker
       }
 
       findPlace({query, fields = ['name', 'geometry']}) {
@@ -58,42 +52,49 @@ export default class googleMaps {
             fields
           }, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-              //for (var i = 0; i < results.length; i++) {
                 const marker = this.putMarkerOnMap(results[0]);
-              //}
-              this._map.setCenter(results[0].geometry.location);
+    
+                this._map.setCenter(results[0].geometry.location);
 
-              resolve(marker)
+                resolve(marker)
             }
           });
         })
        
       }
 
+      reverse_geocode(lat, lng) {
+        return new Promise(resolve => {
+          this._geocoder.geocode({'location': new google.maps.LatLng(lat, lng)}, (results, status) => {
+            if (status === 'OK') {
+                resolve(results[0])
+            }
+        })
+        })
+      }
+    
+
 
       connectMarkers(list) {
         const coordinates = []
-        list.forEach((address, i) => {
-          this._service.findPlaceFromQuery({
-            query: address,
-            fields: ['name', 'geometry']
-          }, results => {
-              coordinates.push(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()))
+        if (this._pl) this._pl.setMap(null);
+        list.forEach(address => {
+              coordinates.push(new google.maps.LatLng(address.lat, address.lng))
               if (coordinates.length === list.length) {
 
-                const pl = new google.maps.Polyline({
+                 this._pl = new google.maps.Polyline({
                   path: coordinates,
                   strokeColor: '#FF0000',
                   strokeOpacity: 1.0,
                   strokeWeight: 2
                 })
 
-                pl.setMap(this._map);
+                this._pl.setMap(this._map);
         
               }
           })
-        })
-      }
+        }
+      
    
 
     

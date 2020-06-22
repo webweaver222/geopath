@@ -1,17 +1,15 @@
-import React, {useEffect , useState, useRef} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 
-import {compose, seDidUpdateEffect} from '../../utils'
+import {compose} from '../../utils'
 import withGoogleMapsService from '../hoc/withGoogleMapsService'
 
 import './map.sass'
 
 
-const Map = ({onMapInit, googleMapsService , list}) => {
+const Map = ({onMapInit, googleMapsService , list, gms}) => {
     
 
-    const [mapsService, setMapsService] = useState({});
-    
 
     const initMap = ( ) => {
         return new Promise(resolve => {
@@ -28,11 +26,7 @@ const Map = ({onMapInit, googleMapsService , list}) => {
 
     useEffect(() => {
         initMap().then(map => {
-
-           setMapsService(new googleMapsService(map))
-
-
-       
+           onMapInit(new googleMapsService(map))
           })  
     }, [])
 
@@ -41,20 +35,8 @@ const Map = ({onMapInit, googleMapsService , list}) => {
 
     useEffect(() => {
       if (list) {
-        mapsService.findPlace({
-          query: list[list.length -1],
-          fields: ['name', 'geometry'],
-        }).then(point => {
-          console.log(point);
-        })
-
-       
-
-
-
-        //mapsService.connectMarkers(list)
-    }
-
+        gms.connectMarkers(list)
+      }
     }, [list])
 
     return (
@@ -64,20 +46,20 @@ const Map = ({onMapInit, googleMapsService , list}) => {
  
 
 
-const mapStateToProps = ({map, list}) => {
+const mapStateToProps = ({list, gms}) => {
   return {
-      map,
-      list
-      
+      list,
+      gms
   }
 } 
 
-const mapDispatchToProps = (dispatch, {service}) => {
-  //console.log(service);
+const mapDispatchToProps = (dispatch) => {
   return {
-      onMapInit: (map) => dispatch({type:'INIT_MAP', payload: map})
+      onMapInit: (gms) => dispatch({type:'INIT_MAP', payload: gms}),
+      onPutMarker: (lat, lng) => dispatch({type:'PUT_MARKER', lat, lng})
   }
 }
+
 
 export default compose(
   withGoogleMapsService,

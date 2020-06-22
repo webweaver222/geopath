@@ -2,7 +2,7 @@
     height: 100%
     display: flex
     .input
-        width: 40%
+        //width: 40%
         margin: 20px 0 0 0 
         text-align: center
         label   
@@ -20,6 +20,44 @@
         align-items: center
         justify-content: center
         border: 1px solid black
+    .left
+        display: flex
+        flex-direction: column
+        width: 40%
+        .list
+            marin-top: 20px
+            padding: 20px
+            .dl-list
+                border: 1px solid coral
+                border-bottom: none
+                .item
+                    color: coral
+                    border-bottom: 1px solid coral
+                    height: 40px
+                    display: flex
+                    cursor: pointer
+                    &:hover
+                        border: 2px solid red
+                        .num
+                            border-right: 2px solid red
+                            width: 4.6%
+
+                    .num, .name
+                        display: flex
+                        align-items: center
+                        height: 100%
+                        padding-left: 5px
+                    .num
+                        width: 5%
+                        border-right: 1px solid coral
+                    .name
+                        width: 95%
+            
+
+
+                    
+
+
         
 
    

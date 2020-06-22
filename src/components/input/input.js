@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+
+import {geocode} from '../../actions/index'
+
 const Input = ({input, list, onInputChange, onEnterAdrerss}) => {
 
     
@@ -9,7 +12,7 @@ const Input = ({input, list, onInputChange, onEnterAdrerss}) => {
             <label htmlFor="">Address input</label>
             <input type="text" onKeyDown={(e) => {
                 if (e.keyCode == 13) {
-                    onEnterAdrerss()
+                    onEnterAdrerss(e)
                 } 
             }} 
             value={input}
@@ -19,17 +22,19 @@ const Input = ({input, list, onInputChange, onEnterAdrerss}) => {
 }
 
 
-const mapStateToProps = ({input, list}) => {
+const mapStateToProps = ({input, list, gms}) => {
     return {
         input,
-        list
+        list,
+        gms
     }
   } 
   
   const mapDispatchToProps = (dispatch) => {
     return {
         onInputChange: (adress) => dispatch({type:'INPUT_CHANGE', payload: adress}),
-        onEnterAdrerss: () => dispatch('ADDRESS_ENTER')
+        onEnterAdrerss: (e) => dispatch(geocode(e.target.value))
+        
     }
   }
  
