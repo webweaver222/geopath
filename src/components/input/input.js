@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {geocode} from '../../actions/index'
 
-const Input = ({input, list, onInputChange, onEnterAdrerss}) => {
+const Input = ({input, onInputChange, onEnterAdrerss}) => {
 
     
     return ( 

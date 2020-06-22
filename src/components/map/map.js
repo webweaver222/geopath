@@ -7,7 +7,7 @@ import withGoogleMapsService from '../hoc/withGoogleMapsService'
 import './map.sass'
 
 
-const Map = ({onMapInit, googleMapsService , list, gms}) => {
+const Map = ({onMapInit, googleMapsService , list, gms, toDispatch}) => {
     
 
 
@@ -35,6 +35,7 @@ const Map = ({onMapInit, googleMapsService , list, gms}) => {
 
     useEffect(() => {
       if (list) {
+        gms.putMarkers(list, toDispatch)
         gms.connectMarkers(list)
       }
     }, [list])
@@ -56,7 +57,8 @@ const mapStateToProps = ({list, gms}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
       onMapInit: (gms) => dispatch({type:'INIT_MAP', payload: gms}),
-      onPutMarker: (lat, lng) => dispatch({type:'PUT_MARKER', lat, lng})
+      onPutMarker: (lat, lng) => dispatch({type:'PUT_MARKER', lat, lng}),
+      toDispatch: (args) => dispatch(args)
   }
 }
 

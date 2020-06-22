@@ -2,19 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux'
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
-const List = ({list, onDnd}) => {
 
-    const renderItems = (list) => {
-        if (list === null) return null
-        return list.map((item, i) => {
-            return <li key={i}>
-                <div className="num">{i+1}.</div>
-                <div className="name">{item.name}</div>
-            </li>
-        })
-    }
+const List = ({list, onDnd, onDelete}) => {
 
-    const theList = list? 
+    const theList = list && list.length > 0? 
     <RLDD
              items={list}
              onChange={onDnd}
@@ -22,6 +13,7 @@ const List = ({list, onDnd}) => {
                 return (<div className="item">
                     <div className="num">{idx+1}.</div>
                     <div className="name">{item.name}</div>
+                    <i className="fa fa-times" onClick={() => {onDelete(idx)}}></i>
                  </div>)
              }}
             
@@ -29,9 +21,6 @@ const List = ({list, onDnd}) => {
             /> :null
 
     return (
-
-        
-
         <div className="list">
             {theList}
         </div>
@@ -44,6 +33,7 @@ export default connect(({list}) => {
     }
 },(dispatch) => {
     return {
-        onDnd: (newItems) => dispatch({type: 'DND_END', payload: newItems})
+        onDnd: (newItems) => dispatch({type: 'DND_END', payload: newItems}),
+        onDelete: (idx) => dispatch({type: 'DELETE_ITEM', payload: idx})
     }
 })(List)

@@ -14,6 +14,13 @@ const updateList = (list, newAdress, idx) => {
    }
   ]
 
+  if (newAdress === 'remove') {
+    return [
+      ...list.slice(0, idx),
+      ...list.slice(idx+1)
+    ]
+  }
+
   if (typeof idx === 'number') {
     return [
       ...list.slice(0, idx),
@@ -21,6 +28,7 @@ const updateList = (list, newAdress, idx) => {
       ...list.slice(idx+1)
   ]
   }
+
 
   return [
     ...list,
@@ -96,6 +104,13 @@ const {list} = state
                 ...state,
                 list: action.payload
               }
+          }
+
+          case 'DELETE_ITEM' : {
+            return {
+              ...state,
+              list: updateList(list, 'remove', action.payload)
+            }
           }
 
           default:
